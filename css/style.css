@@ -1,0 +1,98 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background-color: #6298CF;
+    background-image: url('../img/background_gradient.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+}
+
+img {
+    vertical-align: middle;
+}
+
+input {
+    margin: 1em 0.5em;
+    padding: 1em 3em;
+    border: solid 0.25em #6298CD;
+    border-radius: 0.5em;
+    background-color: #fff;
+}
+
+input:active, input:focus {
+    border-color: #315B83;
+}
+
+.input {
+    background-image: linear-gradient(to right, #4B71A6 12%, #fff 12%);
+}
+
+.input:active, .input:focus {
+    background-image: linear-gradient(to right, #315B83 12%, #fff 12%);
+}
+
+.std-button {
+    color: #fff;
+    border-color: linear-gradient(#6298cf, #447db7);
+    background-image: linear-gradient(#6298cf, #447db7);
+}
+
+.std-button:active {
+    border-color: #315B83;
+    background-image: linear-gradient(#3d75ac, #295e95);
+}
+
+.std-button:focus {
+    border-color: #6298CD;
+}
+
+#login {
+    position: relative;
+    text-align: center;
+    color: #fff;
+}
+
+#logos {
+    margin: auto;
+}
+
+#dash-board {
+    height: auto;
+}
+
+.dash-board-tab {
+    padding: 0.4em 0.3em;
+    background-color: #fff;
+}
+
+#header {
+    padding: 0.8em 0.8em 0em;
+    background-image: linear-gradient( rgba(0,0,0,0) 92%, #4278AF 92% );
+}
+
+#back-button {
+    color: #fff;
+    font-size: 5em;
+}
+
+.tab {
+    padding: 1em 2em;  
+}
+
+.tab-active {
+    border: solid 0.1em #315B83;
+    border-top-left-radius: 0.5em;
+    border-top-right-radius: 0.5em;
+    background-image: linear-gradient( #3d75ac, #295e95 92%, #093E75 92% );
+}
+
+#footer {
+    padding: 0.8em 2em;
+    position: relative;
+    color: #fff;
+    text-align: center;
+    background-color: #2a3845;
+    background-image: linear-gradient( #000 2%, #2a3845 15% );
+}
