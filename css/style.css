@@ -63,7 +63,6 @@ input:active, input:focus {
 }
 
 .dash-board-tab {
-    padding: 0.4em 0.3em;
     background-color: #fff;
 }
 
@@ -95,4 +94,30 @@ input:active, input:focus {
     text-align: center;
     background-color: #2a3845;
     background-image: linear-gradient( #000 2%, #2a3845 15% );
+}
+
+.item {
+    background-image: linear-gradient( #fff 10%, #f0f0f0 99%, #c0c0c0 99% );
+}
+
+.item-thumb {
+    width: 48px;
+    height: 48px;
+    margin: 0em 0.4em;
+    padding: 0.3em;
+    vertical-align: middle;
+    background-color: #474747;
+    float: left;
+}
+
+.item-content {
+    padding: 0.5em;
+    float: left;
+}
+
+#news-footer {
+    height: 0.3em;
+    background-color: rgba(0,0,0,0.1);
+    position: relative;
+    top: -0.3em;
 }

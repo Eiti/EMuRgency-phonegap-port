@@ -3,7 +3,8 @@ $( document ).ready(function() {
     init();
     
     $('#login-button').click( function() {
-        setupDashboard();
+        if(checkUser($('#login-mail').val(), $('#loginpw').val()))
+            setupDashboard();
     });
     
     $('#reg-button').click( function() {
@@ -35,13 +36,12 @@ function setupLogin() {
 function setupDashboard() {
     hideAllBut('#dash-board');
     
-    $('#missions-tab').removeClass('tab-active');
-    $('#missions').hide();
-    
     var windowHeight = $(window).height();
     var headerHeight = $('#header').height();
     var footerHeight = $('#footer').outerHeight();
-    $('#news, #missions').css({'height': (windowHeight-headerHeight-footerHeight-30) + 'px'});
+    $('#news, #missions').css({'height': (windowHeight-headerHeight-footerHeight-14) + 'px'});
+    
+    toggleTabs($('#news-tab').get(0));
 }
 
 function hideAllBut(selector) {
@@ -55,8 +55,11 @@ function toggleTabs(clicked) {
     
     $('.dash-board-tab').hide();
     
-    if( clicked == $('#news-tab').get(0) )
+    if( clicked == $('#news-tab').get(0) ) {
         $('#news').show();
-    else
+        fillNews();
+    } else {
         $('#missions').show();
+        
+    }
 }
