@@ -1,9 +1,9 @@
 body {
-    margin: 0;
+    margin: 2em 0 0;
     padding: 0;
     font-family: sans-serif;
     background-color: #6298CF;
-    background-image: url('../img/background_gradient.png');
+    background-image: url('/ios/img/background_gradient.png');
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100%;
@@ -19,6 +19,19 @@ input {
     border: solid 0.25em #6298CD;
     border-radius: 0.5em;
     background-color: #fff;
+}
+
+@media screen and (max-device-width: 480px) {
+    input[type='checkbox'] {
+        position: relative;
+        left: 40px;
+        vertical-align: middle;
+    }
+
+    #login-form span {
+        position: relative;
+        left: -20px;
+    }
 }
 
 input:active, input:focus {
@@ -67,7 +80,7 @@ input:active, input:focus {
 }
 
 #header {
-    padding: 0.8em 0.8em 0em;
+    padding: 0.8em 0.5em 0em;
     background-image: linear-gradient( rgba(0,0,0,0) 92%, #4278AF 92% );
 }
 

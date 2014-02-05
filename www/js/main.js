@@ -1,8 +1,20 @@
 var store = null;
+var mqtt = null;
 var newsDiff = 0;
 
 function checkUser(mail, password) {
-    return (mail=='' && password=='');
+    if( mail=='' && password=='' ) {
+        mqtt = new Mqtt( 'testtopic' );
+        mqtt.establishConnection();
+        
+        return true;
+    }
+    
+    return false;
+}
+
+function logout() {
+    mqtt.disconnect();
 }
 
 function getNewsItem(index) {
@@ -22,9 +34,9 @@ function fillNews() {
             
             $('#news').append(
                 '<div class="item" id="'+item.title+'">'+
-                    '<img src="../img/case_self_marker.png" class="item-thumb" />'+
+                    '<img src="/ios/img/case_self_marker.png" class="item-thumb" />'+
                     '<div class="item-content">'+item.title+'<br />'+item.content+'</div>'+
-                    '<img src="../img/details.png" style="float:right;margin:0.5em;" />'+
+                    '<img src="/ios/img/details.png" style="float:right;margin:0.5em;" />'+
                     '<div style="clear:both;"></div>'+
                 '</div>'
             );
