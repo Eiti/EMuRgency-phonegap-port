@@ -1,9 +1,9 @@
 body {
-    margin: 2em 0 0;
+    margin: 0;
     padding: 0;
     font-family: sans-serif;
     background-color: #6298CF;
-    background-image: url('/ios/img/background_gradient.png');
+    background-image: url('img/background_gradient.png');
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100%;
@@ -15,10 +15,12 @@ img {
 
 input {
     margin: 1em 0.5em;
-    padding: 1em 3em;
-    border: solid 0.25em #6298CD;
+    padding: 0.5em 2.2em;
+    font-size: 1em;
+    border: solid 0.15em #4979a8;
     border-radius: 0.5em;
     background-color: #fff;
+    box-shadow: 0em 0em 2em #a0c0f0;
 }
 
 @media screen and (max-device-width: 480px) {
@@ -36,6 +38,7 @@ input {
 
 input:active, input:focus {
     border-color: #315B83;
+    box-shadow: 0.3em 0.4em 1em #306090;
 }
 
 .input {
@@ -62,6 +65,7 @@ input:active, input:focus {
 }
 
 #login {
+    margin-top: 2em;
     position: relative;
     text-align: center;
     color: #fff;
@@ -106,7 +110,7 @@ input:active, input:focus {
     color: #fff;
     text-align: center;
     background-color: #2a3845;
-    background-image: linear-gradient( #000 2%, #2a3845 15% );
+    background-image: ;
 }
 
 .item {
@@ -128,9 +132,45 @@ input:active, input:focus {
     float: left;
 }
 
-#news-footer {
+.black-line {
     height: 0.3em;
     background-color: rgba(0,0,0,0.1);
     position: relative;
     top: -0.3em;
+}
+
+#map-container {
+}
+
+#map-overlay {
+    color: #fff;
+    height: 60px;
+    width:100%;
+    background-image: linear-gradient( #000, #000 97%, #a0a0a0 97% );
+    position: absolute;
+    top: 0px;
+    z-index: 50;
+}
+
+#map-back {
+    margin: 1em;
+    color: #0050ff;
+}
+
+#distance {
+    margin: 0.5em;
+    text-align: center;
+    float:right;
+}
+
+#message-box {
+    text-align: center;
+    width: 200px;
+    padding-top: 0.5em;
+    border: solid 0.1em #315B83;
+    border-radius: 0.5em;
+    background-image: linear-gradient( #fff 10%, #f0f0f0 );
+    box-shadow: 0.3em 0.4em 1em #306090;
+    position: absolute;
+    z-index: 99;
 }

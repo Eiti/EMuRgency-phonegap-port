@@ -1,10 +1,41 @@
+$.ajaxSetup( {
+    url: "http://as-emurgency.appspot.com/api/activities/jsonp?page=0&callback=callback",
+    global: true,
+    dataType: 'jsonp',
+    jsonp: 'callback',
+    type: "GET",
+    beforeSend: function( request ) {
+        request.setRequestHeader( "Content-Type", "application/jsonp;charset=UTF-8" );
+        request.setRequestHeader( "Accept", "application/jsonp;charset=UTF-8" );
+    },
+    success: function( response ) {
+        console.log( 'resp: '+ response );
+    },
+    complete: function() {
+        console.log( 'done' );
+    },
+    error: function(error) {
+        console.log( 'failed')
+        console.log( error );
+    }
+} );
+
+$.ajax( { data: { "page" : 1 } } );
+
+var dataDump;
+
+function callback(data) {
+    dataDump = data;
+}
+
 var store = null;
 var mqtt = null;
 var newsDiff = 0;
+var newsTemp = $('#template');
 
-function checkUser(mail, password) {
+function checkUser( mail, password ) {
     if( mail=='' && password=='' ) {
-        mqtt = new Mqtt( 'testtopic' );
+        mqtt = new Mqtt( 'testtopic/#' );
         mqtt.establishConnection();
         
         return true;
@@ -17,31 +48,41 @@ function logout() {
     mqtt.disconnect();
 }
 
-function getNewsItem(index) {
-    return store.findById(index);
+function onReceive( message ) {
+    console.log("on receive: "+ message);
+    
+    if( store !== null ) {
+        try {
+            var parsed = $.parseJSON( message );
+            console.log(parsed);
+        
+            store.addItem( parsed );
+            fillNews();
+        } catch(e) {}
+        
+        //parsed.items[0].verb;
+    }
+}
+
+function getNewsItem( index ) {
+    return store.findById( index );
 }
 
 function fillNews() {
-    if(store==null)
+    console.log("filling news");
+    
+    if( store == null )
         store = new LocalStorageStore();
     
-    var lastStoreItem = getNewsItem(store.getNumberOfItems());
-    var lastHtmlItem = $('#news .item').last().attr('id');
+    $('#news').text("");
     
-    if( lastStoreItem.title != lastHtmlItem ) {
-        for(var i=1; i<=store.getNumberOfItems(); ++i) {
-            var item = getNewsItem(i);
-            
-            $('#news').append(
-                '<div class="item" id="'+item.title+'">'+
-                    '<img src="/ios/img/case_self_marker.png" class="item-thumb" />'+
-                    '<div class="item-content">'+item.title+'<br />'+item.content+'</div>'+
-                    '<img src="/ios/img/details.png" style="float:right;margin:0.5em;" />'+
-                    '<div style="clear:both;"></div>'+
-                '</div>'
-            );
-        }
+    $(dataDump.items).each(function(index, item) {
+        var temp = $(newsTemp).clone();
+        temp.find('img').first().attr('src', item.actor.image);
+        temp.find('.item-content').last().html(item.actor.id+'<br />'+item.actor.displayName);
         
-        $('#news').append('<div id="news-footer"></div>');
-    }
+        $('#news').append(temp);
+    });
+    
+    $('#news').append('<div class="black-line"></div>');
 }

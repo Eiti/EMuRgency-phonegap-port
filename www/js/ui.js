@@ -8,12 +8,26 @@ $( document ).ready(function() {
     });
     
     $('#reg-button').click( function() {
-        
+        showMessage('not yet implemented', null);
+    });
+    
+    $('#message-positive').click( function() {
+        $('#message-box').slideUp( 250 );
+    });
+    
+    $('#map-back').click( function() {
+        hideAllBut('#dash-board');
+        toggleTabs( document.getElementById('missions-tab') );
     });
     
     $('#logout').click( function() {
         setupLogin();
         logout();
+    });
+    
+    $('.mission').click( function() {
+        hideAllBut('#map-container');
+        getLocation();
     });
     
     $('.tab').click( function() {
@@ -40,9 +54,33 @@ function setupDashboard() {
     var windowHeight = $(window).height();
     var headerHeight = $('#header').height();
     var footerHeight = $('#footer').outerHeight();
-    $('#news, #missions').css({'height': (windowHeight-headerHeight-footerHeight-10) + 'px'});
+    $('#news, #missions').css({'height': (windowHeight-headerHeight-footerHeight-12) + 'px'});
     
     toggleTabs($('#news-tab').get(0));
+}
+
+function showMessageBox(message, negative) {
+    $('#message-text').text(message);
+    $('#message-negative').hide();
+    
+    if( negative !== null ) {
+        $('#message-negative').show();
+        
+        $('#message-negative').click( function() {
+            negative();
+            $('#message-box').slideUp( 250 );
+        });
+    }
+    
+    var box = $('#message-box');
+    
+    var windowHeight = $(window).height();
+    var windowWidth = $(window).width();
+    
+    $(box).css( { 'top': (windowHeight/2-box.height()/2) + 'px' } );
+    $(box).css( { 'left': (windowWidth/2-box.width()/2) + 'px' } );
+    
+    box.slideDown( 250 );
 }
 
 function hideAllBut(selector) {
@@ -61,6 +99,19 @@ function toggleTabs(clicked) {
         fillNews();
     } else {
         $('#missions').show();
+    }
+}
+
+function setDistance(distance,accuracy) {
+    if( distance > 100 )
+        $('#distance').html( "distance<br />"+ distance +"m" );
+    else {
+        $('#message-negative').val( 'close case' );
         
+        showMessageBox( "almost there", function() {
+            hideAllBut('#dash-board');
+            toggleTabs( document.getElementById('missions-tab') );
+            // mqtt stuff
+        });
     }
 }

@@ -4,8 +4,8 @@ function Mqtt( topic ) {
     
     this.topic = topic;
     
-    this.clientName = "test.mosquitto.org";
-    this.clientPort = 80;
+    this.clientName = "broker.mqttdashboard.com";
+    this.clientPort = 8000;
     this.clientId = "eiti";
     
     this.setup = function( name, port, id ) {
@@ -15,6 +15,7 @@ function Mqtt( topic ) {
     }
     
     this.establishConnection = function () {
+        console.log("establishing connection");
         client = new Messaging.Client( this.clientName, this.clientPort, this.clientId );
         client.onConnectionLost = this.onConnectionLost;
         client.onMessageArrived = this.onMessageArrived;
@@ -22,6 +23,7 @@ function Mqtt( topic ) {
     }
     
     this.subscribe = function() {
+        console.log("subscribing to topic: "+ topic);
         client.subscribe( topic );
     };
     
@@ -32,12 +34,24 @@ function Mqtt( topic ) {
     }
     
     this.onConnectionLost = function( responseObject ) {
-        if( responseObject.errorCode !== 0 )
-            return responseObject.errorCode;
+        if( responseObject.errorCode !== 0 ) {
+            console.warn("error code: "+ responseObject.errorCode);
+            
+            $('#message-negative').val( 'retry' );
+            
+            showMessageBox("connection lost", function() {
+                console.log("trying to reconnection");
+                //client = new Messaging.Client( this.clientName, this.clientPort, this.clientId );
+                /* ???
+                client.onConnectionLost = this.connectionFunc;
+                client.onMessageArrived = this.receiverFunc;
+                client.connect( { onSuccess : this.subscribeFunc } );*/
+            });
+        }
     };
     
     this.onMessageArrived = function( message ) {
-        return message.payloadString;
+        onReceive( message.payloadString );
     };
     
     this.disconnect = function() {
